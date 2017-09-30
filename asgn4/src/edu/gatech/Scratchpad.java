@@ -45,7 +45,6 @@ public class Scratchpad {
 
     public void uploadFileContents(String inputFileName) {
         //TODO REMOVE THESE PRINT STATEMENTS BEFORE SUBMISSION
-        // display the name of the file selected for processing
         System.out.println(inputFileName);
 
         // Input file which needs to be parsed
