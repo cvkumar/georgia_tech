@@ -11,13 +11,13 @@ public class Course {
     private String name;
 
     private Integer cost;
-    private List<Integer> prereqs;
+    private List<Integer> prereqIDs;
 
     public Course(Integer courseID, String name, Integer cost) {
         this.courseID = courseID;
         this.name = name;
         this.cost = cost;
-        this.prereqs = new ArrayList<Integer>();
+        this.prereqIDs = new ArrayList<Integer>();
     }
 
     public Integer getCourseID() {
@@ -44,7 +44,17 @@ public class Course {
         this.cost = cost;
     }
 
-    public void addPrereq(Integer courseID) {
-        this.prereqs.add(courseID);
+    public void addPrereq(Course prereq) {
+        this.prereqIDs.add(prereq.getCourseID());
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID=" + courseID +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", prereqIDs=" + prereqIDs +
+                '}';
     }
 }

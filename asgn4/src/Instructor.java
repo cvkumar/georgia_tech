@@ -3,13 +3,13 @@
  */
 public class Instructor {
 
-    private String instructorID;
+    private Integer instructorID;
     private String name;
     private String officeHours;
     private String emailAddress;
-    private String courseID;
+    private Integer courseID;
 
-    public Instructor(String instructorID, String name, String officeHours, String emailAddress, String courseID) {
+    public Instructor(Integer instructorID, String name, String officeHours, String emailAddress, Integer courseID) {
         this.instructorID = instructorID;
         this.name = name;
         this.officeHours = officeHours;
@@ -17,11 +17,11 @@ public class Instructor {
         this.courseID = courseID;
     }
 
-    public String getInstructorID() {
+    public Integer getInstructorID() {
         return instructorID;
     }
 
-    public void setInstructorID(String instructorID) {
+    public void setInstructorID(Integer instructorID) {
         this.instructorID = instructorID;
     }
 
@@ -49,11 +49,11 @@ public class Instructor {
         this.emailAddress = emailAddress;
     }
 
-    public String getCourseID() {
+    public Integer getCourseID() {
         return courseID;
     }
 
-    public void setCourseID(String courseID) {
+    public void setCourseID(Integer courseID) {
         this.courseID = courseID;
     }
 

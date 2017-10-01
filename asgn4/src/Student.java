@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by kumarcal on 9/30/17.
  */
@@ -8,6 +11,7 @@ public class Student {
     private String address;
     private String phoneNumber;
     private Integer degreeID;
+    private List<Record> records;
 
     public Student(Integer studentID, String name, String address, String phoneNumber, Integer degreeID) {
         this.studentID = studentID;
@@ -15,6 +19,7 @@ public class Student {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.degreeID = degreeID;
+        this.records = new ArrayList<Record>();
     }
 
     public Integer getStudentID() {

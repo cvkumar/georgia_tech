@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -5,21 +6,22 @@ import java.util.List;
  */
 public class DegreeProgram {
 
-    private Integer degreeID;
+    private Integer degreeProgramID;
     private String Name;
     private List<Integer> courseIDs;
 
-    public DegreeProgram(Integer degreeID, String name) {
-        this.degreeID = degreeID;
+    public DegreeProgram(Integer degreeProgramID, String name) {
+        this.degreeProgramID = degreeProgramID;
         Name = name;
+        courseIDs = new ArrayList<Integer>();
     }
 
-    public Integer getDegreeID() {
-        return degreeID;
+    public Integer getDegreeProgramID() {
+        return degreeProgramID;
     }
 
-    public void setDegreeID(Integer degreeID) {
-        this.degreeID = degreeID;
+    public void setDegreeProgramID(Integer degreeProgramID) {
+        this.degreeProgramID = degreeProgramID;
     }
 
     public String getName() {
@@ -32,5 +34,14 @@ public class DegreeProgram {
 
     public void addCourse(Course course) {
         courseIDs.add(course.getCourseID());
+    }
+
+    @Override
+    public String toString() {
+        return "DegreeProgram{" +
+                "degreeProgramID=" + degreeProgramID +
+                ", Name='" + Name + '\'' +
+                ", courseIDs=" + courseIDs +
+                '}';
     }
 }
