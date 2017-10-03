@@ -7,9 +7,7 @@ import java.util.List;
 public class Course {
 
     private Integer courseID;
-
     private String name;
-
     private Integer cost;
     private List<Integer> prereqIDs;
 

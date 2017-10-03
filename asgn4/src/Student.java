@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Created by kumarcal on 9/30/17.
  */
-public class Student {
+public class Student implements Comparable<Student> {
 
     private Integer studentID;
     private String name;
@@ -64,6 +64,14 @@ public class Student {
 
     public void requestCourse(Integer courseID) {
         //TODO: Implement
+    }
+
+    @Override
+    public int compareTo(Student student) {
+        // compareTo should return < 0 if this is supposed to be
+        // less than other, > 0 if this is supposed to be greater than
+        // other and 0 if they are supposed to be equal
+        return this.getStudentID().compareTo(studentID);
     }
 
     @Override
