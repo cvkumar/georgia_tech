@@ -5,13 +5,14 @@ import java.util.Date;
  */
 public class Record {
 
+    private Integer recordID;
     private Integer studentID;
     private Integer courseID;
-    private Character grade;
+    private Grade grade;
     private String year;
     private Integer term;
 
-    public Record(Integer studentID, Integer courseID, Character grade, String year, Integer term) {
+    public Record(Integer studentID, Integer courseID, Grade grade, String year, Integer term) {
         this.studentID = studentID;
         this.courseID = courseID;
         this.grade = grade;
@@ -35,11 +36,11 @@ public class Record {
         this.courseID = courseID;
     }
 
-    public Character getGrade() {
+    public Grade getGrade() {
         return grade;
     }
 
-    public void setGrade(Character grade) {
+    public void setGrade(Grade grade) {
         this.grade = grade;
     }
 

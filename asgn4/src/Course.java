@@ -46,6 +46,10 @@ public class Course {
         this.prereqIDs.add(prereq.getCourseID());
     }
 
+    public List<Integer> getPrereqIDs() {
+        return prereqIDs;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -55,4 +59,10 @@ public class Course {
                 ", prereqIDs=" + prereqIDs +
                 '}';
     }
+
+//    @Override
+//    public boolean equals(Object course) {
+//        Course courseTyped = (Course) course;
+//        return this.getCourseID().equals(courseTyped.getCourseID());
+//    }
 }
