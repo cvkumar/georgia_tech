@@ -11,7 +11,6 @@ public class Student implements Comparable<Student> {
     private String address;
     private String phoneNumber;
     private Integer degreeID;
-    private List<Record> records;
 
     public Student(Integer studentID, String name, String address, String phoneNumber, Integer degreeID) {
         this.studentID = studentID;
@@ -19,7 +18,6 @@ public class Student implements Comparable<Student> {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.degreeID = degreeID;
-        this.records = new ArrayList<Record>();
     }
 
     public Integer getStudentID() {

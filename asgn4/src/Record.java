@@ -5,7 +5,6 @@ import java.util.Date;
  */
 public class Record {
 
-    private Integer recordID;
     private Integer studentID;
     private Integer courseID;
     private Grade grade;

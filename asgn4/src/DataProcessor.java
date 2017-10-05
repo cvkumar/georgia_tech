@@ -33,9 +33,9 @@ public class DataProcessor {
             List<Record> studentToRecords = studentToRecordsList.get(courseRequest.getStudentID());
             String courseRequestResponse = null;
 
-            if (isCourseMissingPreReq(course, studentToRecords, courseRequestResponse)) {
+            if (isCourseMissingPreReq(course, studentToRecords)) {
                 courseRequestResponse = MISSING_PREREQ;
-            } else if (isCourseMissingInstructor(instructorsByCourseID, courseRequest)) {
+            } else if (isCourseMissingInstructor(courseRequest)) {
                 courseRequestResponse = COURSE_MISSING_INSTRUCTOR;
             } else {
                 courseRequestResponse = REQUEST_GRANTED;
@@ -45,11 +45,11 @@ public class DataProcessor {
         }
     }
 
-    private boolean isCourseMissingInstructor(Map<Integer, Instructor> instructorsByCourseID, CourseRequest courseRequest) {
+    private boolean isCourseMissingInstructor(CourseRequest courseRequest) {
         return instructorsByCourseID.get(courseRequest.getCourseID()) == null;
     }
 
-    private boolean isCourseMissingPreReq(Course course, List<Record> studentToRecords, String courseRequestResponse) {
+    private boolean isCourseMissingPreReq(Course course, List<Record> studentToRecords) {
         for (Integer preReqID : course.getPrereqIDs()) {
             boolean hasPreReq = false;
             for (Record record : studentToRecords) {
