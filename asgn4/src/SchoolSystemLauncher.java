@@ -17,15 +17,17 @@ public class SchoolSystemLauncher {
         Map<Integer, Course> courses = new TreeMap<Integer, Course>();
         Map<Integer, Student> students = new TreeMap<Integer, Student>();
 
+        System.getProperty("user.dir");
+
         //file ingestion
         Scratchpad managementConsole = new Scratchpad();
-        String[] managementSystemFiles = {"test/courses.csv", "test/instructors.csv", "test/students.csv", "test/prereqs.csv", "test/programs.csv", "test/listings.csv", "test/records.csv", "test/requests.csv"};
+        String[] managementSystemFiles = {"courses.csv", "instructors.csv", "students.csv", "prereqs.csv", "programs.csv", "listings.csv", "records.csv", "requests.csv"};
 
         for (String fileName : managementSystemFiles) {
             List<String[]> tokensGrid = managementConsole.uploadFileContents(fileName);
 
             switch (fileName) {
-                case "test/courses.csv":
+                case "courses.csv":
                     for (String[] tokens : tokensGrid) {
                         int courseID = Integer.parseInt(tokens[0]);
                         Course course = new Course(courseID, tokens[1], Integer.parseInt(tokens[2]));
@@ -33,7 +35,7 @@ public class SchoolSystemLauncher {
                         courses.put(courseID, course);
                     }
                     break;
-                case "test/instructors.csv":
+                case "instructors.csv":
                     for (String[] tokens : tokensGrid) {
                         int instructorID = Integer.parseInt(tokens[0]);
                         Instructor instructor = new Instructor(instructorID, tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]));
@@ -42,7 +44,7 @@ public class SchoolSystemLauncher {
                         instructorsByCourseID.put(instructor.getCourseID(), instructor);
                     }
                     break;
-                case "test/students.csv":
+                case "students.csv":
                     for (String[] tokens : tokensGrid) {
                         int studentID = Integer.parseInt(tokens[0]);
                         Student student = new Student(studentID, tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]));
@@ -50,7 +52,7 @@ public class SchoolSystemLauncher {
                         students.put(studentID, student);
                     }
                     break;
-                case "test/prereqs.csv":
+                case "prereqs.csv":
                     for (String[] tokens : tokensGrid) {
                         int courseID = Integer.parseInt(tokens[0]);
                         int prereqID = Integer.parseInt(tokens[1]);
@@ -61,7 +63,7 @@ public class SchoolSystemLauncher {
                         course.addPrereq(prereq);
                     }
                     break;
-                case "test/programs.csv":
+                case "programs.csv":
                     for (String[] tokens : tokensGrid) {
                         int degreeProgramID = Integer.parseInt(tokens[0]);
                         DegreeProgram degreeProgram = new DegreeProgram(degreeProgramID, tokens[1]);
@@ -71,7 +73,7 @@ public class SchoolSystemLauncher {
                     }
 
                     break;
-                case "test/listings.csv":
+                case "listings.csv":
                     for (String[] tokens : tokensGrid) {
                         int degreeProgramID = Integer.parseInt(tokens[0]);
                         int courseID = Integer.parseInt(tokens[1]);
@@ -82,7 +84,7 @@ public class SchoolSystemLauncher {
                         degreeProgram.addCourse(course);
                     }
                     break;
-                case "test/records.csv":
+                case "records.csv":
                     for (String[] tokens : tokensGrid) {
                         int studentID = Integer.parseInt(tokens[0]);
                         int courseID = Integer.parseInt(tokens[1]);
@@ -104,7 +106,7 @@ public class SchoolSystemLauncher {
                     }
 
                     break;
-                case "test/requests.csv":
+                case "requests.csv":
                     for (String[] tokens : tokensGrid) {
                         Integer studentID = Integer.parseInt(tokens[0]);
                         Integer courseID = Integer.parseInt(tokens[1]);
