@@ -3,6 +3,7 @@ courses being taught
 3: Computer Architecture by 8: REBECCA CURRY
 4: Programming II by 5: LAUREN HALEY
 10: Machine Learning by 3: JOSEPH LE
+16: Operating Systems by 6: JOSEPH LAWSON
 student status and costs
 1004: CAROL TAYLOR passed 2 course(s) for $200
 1009: GARY ALLEN passed 1 course(s) for $200

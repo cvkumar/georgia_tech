@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
 
     public static String MISSING_PREREQ = "denied: missing prerequisites";
-    public static String COURSE_NOT_OFFERED = "denied: not being offered";
+    public static String COURSE_MISSING_INSTRUCTOR = "denied: not being offered";
     public static String REQUEST_GRANTED = "granted";
 
     public static void main(String[] args) {
@@ -23,7 +23,6 @@ public class Main {
 
         //file ingestion
         Scratchpad managementConsole = new Scratchpad();
-//        System.out.println(System.getProperty("user.dir"));
         String[] managementSystemFiles = {"test/courses.csv", "test/instructors.csv", "test/students.csv", "test/prereqs.csv", "test/programs.csv", "test/listings.csv", "test/records.csv", "test/requests.csv"};
 
         for (String fileName : managementSystemFiles) {
@@ -88,7 +87,6 @@ public class Main {
                     }
                     break;
                 case "test/records.csv":
-//                System.out.println(tokens[0] + ", " + tokens[1] + ", " + tokens[2] + ", " + tokens[3] + ", " + tokens[4]);
                     for (String[] tokens : tokensGrid) {
                         int studentID = Integer.parseInt(tokens[0]);
                         int courseID = Integer.parseInt(tokens[1]);
@@ -96,8 +94,8 @@ public class Main {
                         int term = Integer.parseInt(tokens[4]);
                         Record record = new Record(studentID, courseID, grade, tokens[3], term);
 
-                        System.out.println(String.format("%s got a '%s' in %s",
-                                students.get(record.getStudentID()).getName(), record.getGrade(), courses.get(record.getCourseID()).getName()));
+//                        System.out.println(String.format("%s got a '%s' in %s",
+//                                students.get(record.getStudentID()).getName(), record.getGrade(), courses.get(record.getCourseID()).getName()));
 
                         List<Record> studentRecords = studentToRecordsList.get(studentID);
                         if (studentRecords == null) {
@@ -111,7 +109,6 @@ public class Main {
 
                     break;
                 case "test/requests.csv":
-//                System.out.println(tokens[0] + ", " + tokens[1]);
                     for (String[] tokens : tokensGrid) {
                         Integer studentID = Integer.parseInt(tokens[0]);
                         Integer courseID = Integer.parseInt(tokens[1]);
@@ -123,7 +120,6 @@ public class Main {
                     break;
             }
         }
-
 
         //TEST INGESTION
 //        System.out.println(courses);
@@ -138,54 +134,49 @@ public class Main {
 
         displayCourses(instructorsByCourseID, courses);
         displayStudentStatusAndCosts(studentToRecordsList, courses, students);
+        processAndDisplayCourseRequests(instructorsByCourseID, courseRequests, studentToRecordsList, courses);
 
+    }
 
-        /*
-        request processing
-1024, 2: granted
-1012, 3: granted
-1015, 2: granted
-1009, 10: denied: missing prerequisites
-1009, 7: denied: not being offered
-1004, 10: granted
-1021, 4: granted
-         */
+    public static void processAndDisplayCourseRequests(Map<Integer, Instructor> instructorsByCourseID, List<CourseRequest> courseRequests, Map<Integer, List<Record>> studentToRecordsList, Map<Integer, Course> courses) {
 
-        /*
-        The request shall be accompanied by the message “denied: missing
-prerequisites” if the student is missing one or more prerequisites; or, by the message “denied:
-not being offered” if there are no instructors teaching the course.
-
-prereqs:
--for each preReq in list of preReqs (course.getPreReqs)
-see if its in student
-         */
         System.out.println("request processing");
+
         for (CourseRequest courseRequest : courseRequests) {
             Course course = courses.get(courseRequest.getCourseID());
             List<Record> studentToRecords = studentToRecordsList.get(courseRequest.getStudentID());
             String courseRequestResponse = null;
 
-            for (Integer preReqID : course.getPrereqIDs()) {
-                boolean hasPreReq = false;
-                for (Record record : studentToRecords) {
-                    if (preReqID == record.getCourseID() && record.getGrade().isPassingGrade()) {
-                        hasPreReq = true;
-                    }
-                }
-                if (!hasPreReq) {
-                    courseRequestResponse = MISSING_PREREQ;
-                }
-            }
-
-            //check if course is offered
-
-            if (courseRequestResponse == null) {
+            if (isCourseMissingPreReq(course, studentToRecords, courseRequestResponse)) {
+                courseRequestResponse = MISSING_PREREQ;
+            } else if (isCourseMissingInstructor(instructorsByCourseID, courseRequest)) {
+                courseRequestResponse = COURSE_MISSING_INSTRUCTOR;
+            } else {
                 courseRequestResponse = REQUEST_GRANTED;
             }
-//            System.out.println(String.format("%d, %d: %s", courseRequest.getStudentID(), courseRequest.getCourseID(), ));
-        }
 
+            System.out.println(String.format("%d, %d: %s", courseRequest.getStudentID(), courseRequest.getCourseID(), courseRequestResponse));
+        }
+    }
+
+    private static boolean isCourseMissingInstructor(Map<Integer, Instructor> instructorsByCourseID, CourseRequest courseRequest) {
+        return instructorsByCourseID.get(courseRequest.getCourseID()) == null;
+    }
+
+    private static boolean isCourseMissingPreReq(Course course, List<Record> studentToRecords, String courseRequestResponse) {
+        for (Integer preReqID : course.getPrereqIDs()) {
+            boolean hasPreReq = false;
+            for (Record record : studentToRecords) {
+                if (preReqID == record.getCourseID() && record.getGrade().isPassingGrade()) {
+                    hasPreReq = true;
+                    break;
+                }
+            }
+            if (!hasPreReq) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void displayStudentStatusAndCosts(Map<Integer, List<Record>> studentToRecordsList, Map<Integer, Course> courses, Map<Integer, Student> students) {
