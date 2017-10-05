@@ -6,13 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used for reading in CSVs
+ */
 public class Scratchpad {
 
     public Scratchpad() {
     }
 
     public List<String[]> uploadFileContents(String inputFileName) {
-//        System.out.println(inputFileName);
 
         // Input file which needs to be parsed
         String fileToParse = inputFileName;

@@ -60,9 +60,4 @@ public class Course {
                 '}';
     }
 
-//    @Override
-//    public boolean equals(Object course) {
-//        Course courseTyped = (Course) course;
-//        return this.getCourseID().equals(courseTyped.getCourseID());
-//    }
 }
